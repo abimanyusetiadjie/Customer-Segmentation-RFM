@@ -42,3 +42,21 @@ Sourced from the Brazilian E-Commerce Public Dataset by Olist on Kaggle:
 *olist_order_items_dataset.csv — items per order (price, freight value, product/seller info)*
 
 *olist_customers_dataset.csv — unique customer information (customer ID, zip code prefix)*
+
+
+Challenges, Process, and Results of RFM Analysis on the Olist Dataset
+---
+**Main Challenges:**
+
+Handling a large e-commerce dataset (~99k orders, ~113k items, ~96k unique customers) with inconsistent timestamps, missing delivery dates (~3% in canceled orders), and extreme RFM skew (88% one-time buyers making accurate segmentation difficult). Additional tasks included verifying missing values in the merged df_master and counting customers in “Champions” vs. “Hibernating” segments.
+
+**Process Followed:**
+Imported key libraries (pandas, numpy, matplotlib, seaborn, datetime), loaded and inspected the three datasets, merged them on order_id and customer_id to create df_master, converted timestamps to datetime, filtered to delivered orders only, calculated RFM metrics (Recency in days, Frequency as order count, Monetary as price + freight sum), applied quantile-based scoring (1–5) combined with business rules for segmentation, visualized distributions, and exported results to CSV. Missing values were checked with isnull().sum() and segment counts via value_counts().
+
+**Key Results & Insights:**
+df_master was clean (0 missing values in RFM-critical columns after preprocessing).
+Average RFM: Recency 291 days, Frequency 1.14 orders, Monetary R$193.
+Segment distribution: Champions ≈4,941 customers (5.1%, contributing ~31% of revenue); Hibernating ≈29,562 customers (30.7%, only ~7% of revenue).
+Core insight: Retention is critical—targeted win-back campaigns for Hibernating customers could recover 15–20% revenue, while prioritizing VIP programs for Champions offers high ROI potential.
+
+_This analysis provides actionable customer segmentation ready for CRM integration and marketing strategy optimization._
